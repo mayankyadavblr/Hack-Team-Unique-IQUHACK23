@@ -16,5 +16,5 @@ def infection_circle(data,infectedID,radius):
         if i in data:
             final_dataframe=final_dataframe.append(data[(i)])
 
-    
+
     return final_dataframe
