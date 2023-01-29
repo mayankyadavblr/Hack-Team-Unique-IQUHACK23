@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Isolation Count</title>
+  </head>
+  <body>
+    <form id="file-form">
+      <label for="file">Upload your text file:</label>
+      <input type="file" id="file" name="file">
+      <input type="button" value="Submit" onclick="processFile()">
+    </form>
+    <div id="output"></div>
+    <script>
+      function processFile() {
+        // Get the file input element
+        var fileInput = document.getElementById('file');
+
+        // Get the file
+        var file = fileInput.files[0];
+
+        // Create a new FileReader
+        var reader = new FileReader();
+
+        // Read the file's contents
+        reader.onload = function(e) {
+          // Get the file's contents
+          var contents = e.target.result;
+
+          // Count the number of instances of the word "isolated"
+          var isolatedCount = (contents.match(/isolated/g) || []).length;
+
+          // Display the output
+          var output = document.getElementById('output');
+          output.innerHTML = "Number of people isolated: " + isolatedCount;
+        };
+        reader.readAsText(file);
+      }
+    </script>
+  </body>
+</html>
