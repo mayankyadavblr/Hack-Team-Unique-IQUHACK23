@@ -1,0 +1,2 @@
+#limit for the cost function
+25,1.5,2
