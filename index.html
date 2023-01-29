@@ -11,29 +11,41 @@
     </form>
     <div id="output"></div>
     <script>
-      // Listen for the form's submit event
       document.getElementById('file-form').addEventListener('submit', function (event) {
         event.preventDefault();
         var form = event.target;
 
-        // Create a new FormData object to send the file to the server
         var formData = new FormData(form);
 
-        // Send the file to the server
         fetch(form.action, {
           method: form.method,
           body: formData
         })
         .then(response => response.text())
         .then(text => {
-          // Get the number of people isolated from the server response
+          
+          storeFileContents(text);
           var isolatedCount = text.match(/isolated/g).length;
 
-          // Display the output
           var output = document.getElementById('output');
           output.innerHTML = "Number of people isolated: " + isolatedCount;
         });
       });
+      
+      function storeFileContents(contents) {
+        
+        fetch("{{url_for('store_file')}}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({contents: contents})
+        })
+        .then(response => response.text())
+        .then(text => {
+          console.log(text);
+        });
+      }
     </script>
   </body>
 </html>
